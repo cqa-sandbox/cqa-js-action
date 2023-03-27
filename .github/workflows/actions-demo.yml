@@ -1,11 +1,6 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀'
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   welcome:
@@ -26,7 +21,11 @@ jobs:
         with:
           repository: 'cqa-sandbox/angular-basic'
           path: 'targets/angular-basic'
+          ref: main
       - run: echo "Cloned angular-basic to local repo."
+      - run: echo "Checking files."
+          cd targets/angular-basic 
+          ls ${{ github.workspace }}
 
   build-repo:
     runs-on: ubuntu-latest
@@ -46,7 +45,7 @@ jobs:
           working-directory: targets/angular-basic
       - run: |
           echo "Changing directory to angular-basic"
-          cd angular-basic 
+          cd targets/angular-basic 
           echo "Running `npm ci`"
           npm ci
           echo "Running `npm run build --if-present`"
