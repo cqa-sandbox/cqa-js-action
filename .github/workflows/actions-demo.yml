@@ -2,19 +2,16 @@ name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
-  build-csv:
-
+  welcome:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]  #[14.x, 16.x, 18.x]
-
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
 
+  clone-repo:
+    runs-on: ubuntu-latest
+    steps:
       # Checkout this repository
       - uses: actions/checkout@v3
       # Check out samples repository into 'path'
@@ -24,12 +21,23 @@ jobs:
           repository: 'cqa-sandbox/angular-basic'
           path: 'targets/angular-basic'
       - run: echo "Cloned angular-basic to local repo."
-      # Build local
+
+  build-repo:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]  #[14.x, 16.x, 18.x]
+    defaults: 
+      run:
+        working-directory: targets/angular-basic
+    steps:
+    # Build local
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
+          working-directory: targets/angular-basic
       - run: |
           echo "Changing directory to angular-basic"
           cd angular-basic 
@@ -38,8 +46,10 @@ jobs:
           echo "Running `npm run build --if-present`"
           npm run build --if-present
 
+  test-repo:
+    runs-on: ubuntu-latest
+    steps:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
