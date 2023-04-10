@@ -1,0 +1,24 @@
+# Starter Workflow Template for CQA
+# See: https://docs.github.com/en/actions/using-workflows/creating-starter-workflows-for-your-organization
+
+name: CQA Organization Nightly Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '30 5 * * 1,2'
+    
+  workflow_call:  # enabled as a resuable workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run a one-line script
+        run: echo Running Nightly Build Action in CQA Org
