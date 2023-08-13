@@ -1,0 +1,20 @@
+{
+  "name": "cqa-js-action",
+  "version": "1.0.0",
+  "description": "Custom action for testing and validating build & deployment of JavaScript samples.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cqa-sandbox/cqa-js-action.git"
+  },
+  "keywords": [],
+  "author": "Nitya Narasimhan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cqa-sandbox/cqa-js-action/issues"
+  },
+  "homepage": "https://github.com/cqa-sandbox/cqa-js-action#readme"
+}

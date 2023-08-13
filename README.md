@@ -6,16 +6,21 @@
 
 ## Objective
 
-Build a custom action that, given a list of repositories, will 
- - checkout a repository
- - run a (reusable) github action workflow
- - write the (results) artifacts to the local repo
+Build a custom action that can:
+ 1. checkout a target `samples` repository
+ 2. validate the default _build_ workflow
+ 3. run optional _test_ workflows
+ 4. write result _artifacts_ to a specified folder in local repo
 
-for each repository in the list, where this custom action can itself be triggered based on:
-- manual dispatch (browser)
-- regular schedule (cron)
-- push commits to a branch (e.g., main)
-- pull requests (e.g., to main)
+where the action is invoked with:
+ - inputs = config file listing one or targets
+ - outputs = artifacts folder (with each target in a subfolder)
+
+and action can be triggered by:
+ - manual dispatch (browser)
+ - regular schedule (cron)
+ - push commits to branch (change to config file)
+ - pull requests (change to config file)
 
 ---
 
@@ -32,8 +37,10 @@ Add this custom action to the [cqa-dashboard](https://github.com/org-cqa/cqa-das
 ## References
 
  * [Create custom actions](https://docs.github.com/en/actions/creating-actions/about-custom-actions)
+ * [Create JS action](https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action) - w/ GitHub Actions Toolkit Node.js module
  * [Publishing actions in marketplace](https://docs.github.com/en/actions/creating-actions/publishing-actions-in-github-marketplace)
  * [Github Actions Toolkit](https://github.com/actions/toolkit) - with [javascript-action](https://github.com/actions/javascript-action) template
  * [GitHub Reusable Workflows & Custom Actions](https://dev.to/oneadvanced/github-reusable-workflows-and-custom-actions-3cbk)
+ * [GitHub Actions for VS Code](*https://github.blog/2023-03-28-announcing-the-github-actions-extension-for-vs-code/)
 
  ---
